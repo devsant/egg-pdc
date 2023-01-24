@@ -8,64 +8,75 @@
 //introducidos son correctos, es decir, están entre el 1 y el 9. El usuario ingresa el tamaño de la matriz que no debe superar orden igual a 10.
 
 Algoritmo Actividad_6
-	Definir matriz, i, j, n, m, x, sum1, sum2, z, t Como Entero
-	Definir bandera Como Logico
-	sum1 = 0
-	sum2 = 0
-	z = 0
-	t = 0
-	bandera = Falso
+	Definir matriz, i, j, n, m, x Como Entero
 
 	
 	Repetir
-		Escribir "Ingresar los valores para las filas y columnas, recuerda que debe ser cuadrada"
+		Escribir "Ingresar los valores para las filas y columnas, recuerda que debe ser cuadrada y hasta 10"
 		Leer n, m
-	Mientras Que n<>m
+	Mientras Que n<>m o (n > 10 y m > 10)
 	
 	Dimension matriz(n, m)
 	
 	Para i = 0 Hasta n-1 Hacer
 		Para j = 0 Hasta m-1 Hacer
 			Repetir
-				Escribir "Ingrese los numeros para la matriz, del 1 al 9 ", i, j
+				Escribir "Ingrese los numeros para la matriz, del 1 al 9 ", "Fila: ", i, ", Columna: ", j
 				Leer x
 			Mientras Que x < 0 o x > 10
 			matriz[i, j] = x
 		FinPara
 	FinPara
 	
-	comprobarMatrizMagica(matriz, sum1, sum2, z, n, t, bandera)
-	
-	Si bandera Entonces
-		Escribir "Es magico"
-	SiNo
-		Escribir "No es magico"
-	FinSi
+	comprobarMatrizMagica(matriz, n, m)
 	
 FinAlgoritmo
 
 //Posible idea para una recursion
-SubProceso comprobarMatrizMagica(m Por Referencia, sum1 Por valor, sum2 Por valor, z Por Referencia, n Por Valor, t Por valor, bandera Por referencia)
-	Definir i, j Como Entero
+SubProceso comprobarMatrizMagica(matriz Por Referencia, n Por valor, m Por valor)
+	Definir i, j, sumaDiagonalP, sumaDiagonalS Como Entero
+	sumaDiagonalP = 0
+	sumaDiagonalS = 0
 	
-	Si sum1 == sum2 Entonces
-		Para i = 0 Hasta n-1 Hacer
-			sum1 = sum1 + m[z, i]
+	Para i = 0 Hasta n-1 Hacer
+		Para j = 0 Hasta m-1 Hacer
+			Si i == j Entonces 
+				sumaDiagonalP = sumaDiagonalP + matriz[i, j]
+			FinSi
 		FinPara
-		//Escribir sum1
-		Para i = 0 Hasta n-1 Hacer
-			sum2 = sum2 + m[i, t]
-		FinPara
-		//Escribir "s", sum2
-		z = z + 1
-		t = t + 1
-		Si z < n
-			bandera = Verdadero
-			comprobarMatrizMagica(m, sum1, sum2, z, n, t, bandera)
-		FinSi
+	FinPara
+	
+	Para i = 0 Hasta n-1 Hacer
+		sumaDiagonalS = sumaDiagonalS + matriz[i, n-1]
+		n = n-1
+	FinPara
+	
+	Si sumaDiagonalP == sumaDiagonalS Entonces
+		Escribir "Es magica"
 	SiNo
-		bandera = Falso
+		Escribir "No es magica"
 	FinSi
+	
+//	Si sum1 == sum2 Entonces
+//		
+//		//m[0, i]
+//		Para i = 0 Hasta n-1 Hacer
+//			sum1 = sum1 + m[z, i]
+//		FinPara
+//		Escribir sum1
+//		Para i = 0 Hasta n-1 Hacer
+//			sum2 = sum2 + m[i, t]
+//		FinPara
+//		Escribir "s", sum2
+//		z = z + 1
+//		t = t + 1
+//		Si sum1 == sum2 y z < n
+//			bandera = Verdadero
+//			comprobarMatrizMagica(m, sum1, sum2, z, n, t, bandera)
+//		FinSi
+//	SiNo
+//		bandera = Falso
+//	FinSi
 	
 	
 	
